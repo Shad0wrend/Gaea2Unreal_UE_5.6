@@ -1,3 +1,5 @@
+![Gaea2Unreal](screenshots/gaea2Unreal.jpg)
+
 # Gaea2Unreal
 
 Use Gaea2Unreal, specifically the Gaea Landscape Importer, to easily import a [Gaea terrain](https://quadspinner.com), color maps, weight maps, and masks in Unreal Engine 5 with a single click.
