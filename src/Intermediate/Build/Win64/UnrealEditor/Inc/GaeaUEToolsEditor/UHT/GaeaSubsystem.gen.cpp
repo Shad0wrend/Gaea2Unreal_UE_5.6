@@ -10,7 +10,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeGaeaSubsystem() {}
 
 // Begin Cross Module References
-COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FIntPoint();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 EDITORSUBSYSTEM_API UClass* Z_Construct_UClass_UEditorSubsystem();
 ENGINE_API UClass* Z_Construct_UClass_UMaterialInterface_NoRegister();
@@ -19,9 +18,7 @@ GAEAUETOOLSEDITOR_API UClass* Z_Construct_UClass_UGaeaSubsystem_NoRegister();
 GAEAUETOOLSEDITOR_API UClass* Z_Construct_UClass_UImporterPanelSettings_NoRegister();
 GAEAUETOOLSEDITOR_API UScriptStruct* Z_Construct_UScriptStruct_FGaeaJson();
 LANDSCAPE_API UClass* Z_Construct_UClass_ALandscape_NoRegister();
-LANDSCAPE_API UClass* Z_Construct_UClass_ALandscapeProxy_NoRegister();
 LANDSCAPE_API UClass* Z_Construct_UClass_ULandscapeInfo_NoRegister();
-LANDSCAPE_API UClass* Z_Construct_UClass_ULandscapeSubsystem_NoRegister();
 LANDSCAPE_API UClass* Z_Construct_UClass_UMaterialExpressionLandscapeLayerBlend_NoRegister();
 UPackage* Z_Construct_UPackage__Script_GaeaUEToolsEditor();
 // End Cross Module References
@@ -121,72 +118,6 @@ UScriptStruct* Z_Construct_UScriptStruct_FGaeaJson()
 	return Z_Registration_Info_UScriptStruct_GaeaJson.InnerSingleton;
 }
 // End ScriptStruct FGaeaJson
-
-// Begin Class UGaeaSubsystem Function AddComponents
-struct Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics
-{
-	struct GaeaSubsystem_eventAddComponents_Parms
-	{
-		ULandscapeInfo* InLandscapeInfo;
-		ULandscapeSubsystem* InLandscapeSubsystem;
-		TArray<FIntPoint> InComponentCoordinates;
-		TArray<ALandscapeProxy*> OutCreatedStreamingProxies;
-	};
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/GaeaSubsystem.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_InComponentCoordinates_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_InLandscapeInfo;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_InLandscapeSubsystem;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_InComponentCoordinates_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_InComponentCoordinates;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_OutCreatedStreamingProxies_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_OutCreatedStreamingProxies;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InLandscapeInfo = { "InLandscapeInfo", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(GaeaSubsystem_eventAddComponents_Parms, InLandscapeInfo), Z_Construct_UClass_ULandscapeInfo_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InLandscapeSubsystem = { "InLandscapeSubsystem", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(GaeaSubsystem_eventAddComponents_Parms, InLandscapeSubsystem), Z_Construct_UClass_ULandscapeSubsystem_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InComponentCoordinates_Inner = { "InComponentCoordinates", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FIntPoint, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InComponentCoordinates = { "InComponentCoordinates", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(GaeaSubsystem_eventAddComponents_Parms, InComponentCoordinates), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InComponentCoordinates_MetaData), NewProp_InComponentCoordinates_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_OutCreatedStreamingProxies_Inner = { "OutCreatedStreamingProxies", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_ALandscapeProxy_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_OutCreatedStreamingProxies = { "OutCreatedStreamingProxies", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(GaeaSubsystem_eventAddComponents_Parms, OutCreatedStreamingProxies), EArrayPropertyFlags::None, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InLandscapeInfo,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InLandscapeSubsystem,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InComponentCoordinates_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_InComponentCoordinates,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_OutCreatedStreamingProxies_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::NewProp_OutCreatedStreamingProxies,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UGaeaSubsystem, nullptr, "AddComponents", nullptr, nullptr, Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::PropPointers), sizeof(Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::GaeaSubsystem_eventAddComponents_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00420401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::Function_MetaDataParams), Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::GaeaSubsystem_eventAddComponents_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_UGaeaSubsystem_AddComponents()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UGaeaSubsystem_AddComponents_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(UGaeaSubsystem::execAddComponents)
-{
-	P_GET_OBJECT(ULandscapeInfo,Z_Param_InLandscapeInfo);
-	P_GET_OBJECT(ULandscapeSubsystem,Z_Param_InLandscapeSubsystem);
-	P_GET_TARRAY_REF(FIntPoint,Z_Param_Out_InComponentCoordinates);
-	P_GET_TARRAY_REF(ALandscapeProxy*,Z_Param_Out_OutCreatedStreamingProxies);
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->AddComponents(Z_Param_InLandscapeInfo,Z_Param_InLandscapeSubsystem,Z_Param_Out_InComponentCoordinates,Z_Param_Out_OutCreatedStreamingProxies);
-	P_NATIVE_END;
-}
-// End Class UGaeaSubsystem Function AddComponents
 
 // Begin Class UGaeaSubsystem Function CreateLandscapeActor
 struct Z_Construct_UFunction_UGaeaSubsystem_CreateLandscapeActor_Statics
@@ -292,35 +223,6 @@ DEFINE_FUNCTION(UGaeaSubsystem::execCreateStructFromJson)
 	P_NATIVE_END;
 }
 // End Class UGaeaSubsystem Function CreateStructFromJson
-
-// Begin Class UGaeaSubsystem Function DeleteLandscapeComponents
-struct Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/GaeaSubsystem.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UGaeaSubsystem, nullptr, "DeleteLandscapeComponents", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents_Statics::Function_MetaDataParams), Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(UGaeaSubsystem::execDeleteLandscapeComponents)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->DeleteLandscapeComponents();
-	P_NATIVE_END;
-}
-// End Class UGaeaSubsystem Function DeleteLandscapeComponents
 
 // Begin Class UGaeaSubsystem Function GetGaeaSubsystem
 struct Z_Construct_UFunction_UGaeaSubsystem_GetGaeaSubsystem_Statics
@@ -747,10 +649,8 @@ void UGaeaSubsystem::StaticRegisterNativesUGaeaSubsystem()
 {
 	UClass* Class = UGaeaSubsystem::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
-		{ "AddComponents", &UGaeaSubsystem::execAddComponents },
 		{ "CreateLandscapeActor", &UGaeaSubsystem::execCreateLandscapeActor },
 		{ "CreateStructFromJson", &UGaeaSubsystem::execCreateStructFromJson },
-		{ "DeleteLandscapeComponents", &UGaeaSubsystem::execDeleteLandscapeComponents },
 		{ "GetGaeaSubsystem", &UGaeaSubsystem::execGetGaeaSubsystem },
 		{ "GetLandscape", &UGaeaSubsystem::execGetLandscape },
 		{ "GetLandscapeLayerBlendNames", &UGaeaSubsystem::execGetLandscapeLayerBlendNames },
@@ -790,10 +690,8 @@ struct Z_Construct_UClass_UGaeaSubsystem_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UGaeaSubsystem_AddComponents, "AddComponents" }, // 3238670431
 		{ &Z_Construct_UFunction_UGaeaSubsystem_CreateLandscapeActor, "CreateLandscapeActor" }, // 750424786
 		{ &Z_Construct_UFunction_UGaeaSubsystem_CreateStructFromJson, "CreateStructFromJson" }, // 1613792579
-		{ &Z_Construct_UFunction_UGaeaSubsystem_DeleteLandscapeComponents, "DeleteLandscapeComponents" }, // 2303388210
 		{ &Z_Construct_UFunction_UGaeaSubsystem_GetGaeaSubsystem, "GetGaeaSubsystem" }, // 128476306
 		{ &Z_Construct_UFunction_UGaeaSubsystem_GetLandscape, "GetLandscape" }, // 4283000196
 		{ &Z_Construct_UFunction_UGaeaSubsystem_GetLandscapeLayerBlendNames, "GetLandscapeLayerBlendNames" }, // 3254978093
@@ -855,18 +753,18 @@ UGaeaSubsystem::~UGaeaSubsystem() {}
 // End Class UGaeaSubsystem
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics
+struct Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
 		{ FGaeaJson::StaticStruct, Z_Construct_UScriptStruct_FGaeaJson_Statics::NewStructOps, TEXT("GaeaJson"), &Z_Registration_Info_UScriptStruct_GaeaJson, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FGaeaJson), 568454402U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UGaeaSubsystem, UGaeaSubsystem::StaticClass, TEXT("UGaeaSubsystem"), &Z_Registration_Info_UClass_UGaeaSubsystem, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGaeaSubsystem), 3800020407U) },
+		{ Z_Construct_UClass_UGaeaSubsystem, UGaeaSubsystem::StaticClass, TEXT("UGaeaSubsystem"), &Z_Registration_Info_UClass_UGaeaSubsystem, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGaeaSubsystem), 3708554181U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_2372848848(TEXT("/Script/GaeaUEToolsEditor"),
-	Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ClassInfo),
-	Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ScriptStructInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_4216918434(TEXT("/Script/GaeaUEToolsEditor"),
+	Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ClassInfo),
+	Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_Statics::ScriptStructInfo),
 	nullptr, 0);
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

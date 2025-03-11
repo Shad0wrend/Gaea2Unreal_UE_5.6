@@ -19,6 +19,11 @@ SGaeaImportWindow::SGaeaImportWindow()
 
 SGaeaImportWindow::~SGaeaImportWindow()
 {
+	if (ImporterSettings)
+	{
+		ImporterSettings->RemoveFromRoot();
+		ImporterSettings = nullptr;
+	}
 }
 
 void SGaeaImportWindow::Construct(const FArguments& InArgs)
@@ -66,7 +71,11 @@ void SGaeaImportWindow::Construct(const FArguments& InArgs)
 			   .Text(FText::FromString(("Create Landscape")))
 			   .HAlign(HAlign_Center)
 			   .VAlign(VAlign_Center)
-			   .IsEnabled_Lambda([this]() {return ImporterSettings != nullptr && !ImporterSettings->HeightMapFileName.IsEmpty();})
+		   	.IsEnabled_Lambda([this]() {return ImporterSettings != nullptr 
+		&& !ImporterSettings->HeightMapFileName.IsEmpty()
+		&& (ImporterSettings->WeightmapFileNames.Num() == 0 
+			|| ImporterSettings->LandscapeMaterialLayerNames.Num() == 0
+			|| ImporterSettings->WeightmapFileNames.Num() < ImporterSettings->LandscapeMaterialLayerNames.Num());})
 			   .ButtonColorAndOpacity(FColor::Emerald)
 			   .OnClicked(this, &SGaeaImportWindow::OnCreateLandscapeClicked)
 		   ]
@@ -86,6 +95,7 @@ void SGaeaImportWindow::CreateDetailsView()
 	Args.bShowScrollBar = true;
 
 	ImporterSettings = NewObject<UImporterPanelSettings>();
+	ImporterSettings->AddToRoot();
 	PropertyWidget = PropertyModule.CreateDetailView(Args);
 	PropertyWidget->SetObject(ImporterSettings);
 

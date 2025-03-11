@@ -102,10 +102,10 @@ struct Z_Construct_UClass_UImporterPanelSettings_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeightmapFileNames_MetaData[] = {
 		{ "Category", "Filepaths" },
-		{ "Comment", "//Reorder these to match the desired landscape layer.\n" },
+		{ "Comment", "//Reorder these to match the desired landscape layer. This must always be less than the amount of layers provided by the landscape material.\n" },
 		{ "DisplayName", "Weightmap Filenames" },
 		{ "ModuleRelativePath", "Public/ImporterPanelSettings.h" },
-		{ "ToolTip", "Reorder these to match the desired landscape layer." },
+		{ "ToolTip", "Reorder these to match the desired landscape layer. This must always be less than the amount of layers provided by the landscape material." },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WeightmapFilePaths_MetaData[] = {
 		{ "ModuleRelativePath", "Public/ImporterPanelSettings.h" },
@@ -140,10 +140,10 @@ struct Z_Construct_UClass_UImporterPanelSettings_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LandscapeMaterial_MetaData[] = {
 		{ "Category", "Rendering" },
-		{ "Comment", "/*UPROPERTY(EditAnywhere, Category=\"Landscape Actor Settings|World Partition\", meta = (EditCondition = \"bIsWorldPartition\", UIMin=\"4\", UIMax=\"64\", ClampMin=\"4\", ClampMax=\"64\"))\n\x09int32 WorldPartitionRegionSize = 16;*///Must be set to automatically setup layer weightmaps.\n" },
+		{ "Comment", "//Must be set to automatically setup layer weightmaps.\n" },
 		{ "DisplayName", "Landscape Material" },
 		{ "ModuleRelativePath", "Public/ImporterPanelSettings.h" },
-		{ "ToolTip", "UPROPERTY(EditAnywhere, Category=\"Landscape Actor Settings|World Partition\", meta = (EditCondition = \"bIsWorldPartition\", UIMin=\"4\", UIMax=\"64\", ClampMin=\"4\", ClampMax=\"64\"))\n       int32 WorldPartitionRegionSize = 16;//Must be set to automatically setup layer weightmaps." },
+		{ "ToolTip", "Must be set to automatically setup layer weightmaps." },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LandscapeMaterialLayerNames_MetaData[] = {
 		{ "Category", "Rendering" },
@@ -309,14 +309,14 @@ DEFINE_VTABLE_PTR_HELPER_CTOR(UImporterPanelSettings);
 // End Class UImporterPanelSettings
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_Statics
+struct Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UImporterPanelSettings, UImporterPanelSettings::StaticClass, TEXT("UImporterPanelSettings"), &Z_Registration_Info_UClass_UImporterPanelSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UImporterPanelSettings), 2077544744U) },
+		{ Z_Construct_UClass_UImporterPanelSettings, UImporterPanelSettings::StaticClass, TEXT("UImporterPanelSettings"), &Z_Registration_Info_UClass_UImporterPanelSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UImporterPanelSettings), 2898716088U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_4269628183(TEXT("/Script/GaeaUEToolsEditor"),
-	Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_3402212712(TEXT("/Script/GaeaUEToolsEditor"),
+	Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_ImporterPanelSettings_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

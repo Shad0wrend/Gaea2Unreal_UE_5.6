@@ -37,8 +37,7 @@ void FGaeaUEToolsEditorModule::StartupModule()
 		{
 			
 			UE_LOG(LogTemp, Log, TEXT("Opening Gaea Landscape Importer Window"));
-			UGaeaSubsystem* GSubsystem = UGaeaSubsystem::GetGaeaSubsystem();
-			if (GSubsystem)
+			if (UGaeaSubsystem* GSubsystem = UGaeaSubsystem::GetGaeaSubsystem())
 			{
 			//UE_LOG(LogTemp, Log, TEXT("Opened Gaea Landscape Importer Window."));
 			GSubsystem->SpawnGImporterWindow();

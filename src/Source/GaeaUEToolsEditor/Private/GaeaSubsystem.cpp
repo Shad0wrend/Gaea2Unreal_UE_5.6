@@ -218,12 +218,13 @@ void UGaeaSubsystem::ReimportGaeaTerrain()
 
 				FLandscapeEditDataInterface LandscapeEdit(Landscape->GetLandscapeInfo());
 				
-				if(EditLayers)
+				if (EditLayers)
 				{
-					FLandscapeLayer* BaseLayer = Landscape->GetLayer(0);
+					const FLandscapeLayer* BaseLayer = Landscape->GetLayerConst(0); //The old GetLayer() function has been deprecated. Use this to avoid nullptr crash.
 					FGuid ID = BaseLayer->Guid;
 					LandscapeEdit.SetEditLayer(ID);
 				}
+				
 				
 				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				/// Weightmap Data Setup and SetAlphaData Execution
@@ -492,7 +493,7 @@ void UGaeaSubsystem::ReimportGaeaWPTerrain()
 									{
 										if (Landscape->bCanHaveLayersContent)
 										{
-											FLandscapeLayer* BaseLayer = Landscape->GetLayer(0);
+											const FLandscapeLayer* BaseLayer = Landscape->GetLayerConst(0);
 											FGuid ID = BaseLayer->Guid;
 											LandscapeEdit.SetEditLayer(ID);
 
@@ -533,7 +534,7 @@ void UGaeaSubsystem::ReimportGaeaWPTerrain()
 									{
 										TArray<uint8> FirstLayerData;
 										FirstLayerData.SetNum(CompSizeX * CompSizeY);
-										FMemory::Memset(FirstLayerData.GetData(), 255, CompSizeX * CompSizeY); // Fill with 255 to "clear" the weightmap
+										FMemory::Memset(FirstLayerData.GetData(), 255, CompSizeX * CompSizeY);
 										LandscapeEdit.SetAlphaData(InfoObjects[0],ComponentsRect.Min.X, ComponentsRect.Min.Y,ComponentsRect.Max.X, ComponentsRect.Max.Y,FirstLayerData.GetData(),0,ELandscapeLayerPaintingRestriction::None,true, false);
 										
 										for (int32 i = 1; i < InfoObjects.Num(); i++)  // Start from 1 to skip first layer
@@ -570,7 +571,7 @@ void UGaeaSubsystem::ReimportGaeaWPTerrain()
 												{
 													if (Landscape->bCanHaveLayersContent)
 													{
-														FLandscapeLayer* BaseLayer = Landscape->GetLayer(0);
+														const FLandscapeLayer* BaseLayer = Landscape->GetLayerConst(0);
 														FGuid ID = BaseLayer->Guid;
 														LandscapeEdit.SetEditLayer(ID);
 
@@ -610,14 +611,6 @@ void UGaeaSubsystem::ReimportGaeaWPTerrain()
 			}
 		}
 	}
-}
-               
-
-
-
-void UGaeaSubsystem::DeleteLandscapeComponents()
-{
-	
 }
 
 void UGaeaSubsystem::ImportHeightmap(FString& Heightmap, FString& JSON, FVector& Scale, FVector& Location, TArray<FString>& Weightmaps, FString& CachedPath)
@@ -806,109 +799,12 @@ ALandscape* UGaeaSubsystem::GetLandscape(ULandscapeInfo* LandscapeInfo) const
 	return nullptr;
 }
 
-FGuid UGaeaSubsystem::GetLayerGuidFromIndex(int32 Index, ULandscapeInfo* LandscapeInfo) const
+/* FGuid UGaeaSubsystem::GetLayerGuidFromIndex(int32 Index, ULandscapeInfo* LandscapeInfo) const
 {
 	ALandscape* Landscape = GetLandscape(LandscapeInfo);
 	FLandscapeLayer* Layer = Landscape ? Landscape->GetLayer(Index) : nullptr;
 	return Layer ? Layer->Guid : FGuid();
-}
-
-void UGaeaSubsystem::AddComponents(ULandscapeInfo* InLandscapeInfo, ULandscapeSubsystem* InLandscapeSubsystem,
-                                   const TArray<FIntPoint>& InComponentCoordinates, TArray<ALandscapeProxy*>& OutCreatedStreamingProxies)
-{
-	TRACE_CPUPROFILER_EVENT_SCOPE(AddComponents);
-	TArray<ULandscapeComponent*> NewComponents;
-	InLandscapeInfo->Modify();
-	for (const FIntPoint& ComponentCoordinate : InComponentCoordinates)
-	{
-		ULandscapeComponent* LandscapeComponent = InLandscapeInfo->XYtoComponentMap.FindRef(ComponentCoordinate);
-		if (LandscapeComponent)
-		{
-			continue;
-		}
-
-		// Add New component...
-		FIntPoint ComponentBase = ComponentCoordinate * InLandscapeInfo->ComponentSizeQuads;
-
-		ALandscapeProxy* LandscapeProxy = InLandscapeSubsystem->FindOrAddLandscapeProxy(InLandscapeInfo, ComponentBase);
-		if (!LandscapeProxy)
-		{
-			continue;
-		}
-
-		OutCreatedStreamingProxies.Add(LandscapeProxy);
-
-		LandscapeComponent = NewObject<ULandscapeComponent>(LandscapeProxy, NAME_None, RF_Transactional);
-		NewComponents.Add(LandscapeComponent);
-		LandscapeComponent->Init(
-			ComponentBase.X, ComponentBase.Y,
-			LandscapeProxy->ComponentSizeQuads,
-			LandscapeProxy->NumSubsections,
-			LandscapeProxy->SubsectionSizeQuads
-		);
-
-		TArray<FColor> HeightData;
-		const int32 ComponentVerts = (LandscapeComponent->SubsectionSizeQuads + 1) * LandscapeComponent->NumSubsections;
-		const FColor PackedMidpoint = LandscapeDataAccess::PackHeight(LandscapeDataAccess::GetTexHeight(0.0f));
-		HeightData.Init(PackedMidpoint, FMath::Square(ComponentVerts));
-
-		LandscapeComponent->InitHeightmapData(HeightData, true);
-		LandscapeComponent->UpdateMaterialInstances();
-
-		InLandscapeInfo->XYtoComponentMap.Add(ComponentCoordinate, LandscapeComponent);
-		InLandscapeInfo->XYtoAddCollisionMap.Remove(ComponentCoordinate);
-	}
-
-	// Need to register to use general height/xyoffset data update
-	for (int32 Idx = 0; Idx < NewComponents.Num(); Idx++)
-	{
-		NewComponents[Idx]->RegisterComponent();
-	}
-
-	const bool bHasXYOffset = false;
-	ALandscape* Landscape = InLandscapeInfo->LandscapeActor.Get();
-
-	bool bHasLandscapeLayersContent = Landscape && Landscape->HasLayersContent();
-
-	for (ULandscapeComponent* NewComponent : NewComponents)
-	{
-		if (bHasLandscapeLayersContent)
-		{
-			TArray<ULandscapeComponent*> ComponentsUsingHeightmap;
-			ComponentsUsingHeightmap.Add(NewComponent);
-
-			for (const FLandscapeLayer& Layer : Landscape->LandscapeLayers)
-			{
-				// Since we do not share heightmap when adding new component, we will provided the required array, but they will only be used for 1 component
-				TMap<UTexture2D*, UTexture2D*> CreatedHeightmapTextures;
-				NewComponent->AddDefaultLayerData(Layer.Guid, ComponentsUsingHeightmap, CreatedHeightmapTextures);
-			}
-		}
-
-		// Update Collision
-		NewComponent->UpdateCachedBounds();
-		NewComponent->UpdateBounds();
-		NewComponent->MarkRenderStateDirty();
-
-		if (!bHasLandscapeLayersContent)
-		{
-			ULandscapeHeightfieldCollisionComponent* CollisionComp = NewComponent->GetCollisionComponent();
-			if (CollisionComp && !bHasXYOffset)
-			{
-				CollisionComp->MarkRenderStateDirty();
-				CollisionComp->RecreateCollision();
-			}
-		}
-	}
-
-
-	if (Landscape)
-	{
-		GEngine->BroadcastOnActorMoved(Landscape);
-	}
-}
-
-
+}*/
 
 void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 {
@@ -938,8 +834,6 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 
 	ELandscapeImportResult ImportResult = FLandscapeImportHelper::GetHeightmapImportDescriptor(Settings->HeightMapFileName, bSingleFile, Settings->FlipYAxis, OutImportDescriptor, OutMessage);
 	int32 DescriptorIndex = OutImportDescriptor.FileResolutions.Num() / 2;
-
-	FAssetToolsModule& AssetToolsModule = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools");
 	
 	ULandscapeEditorObject* DefaultValueObject = ULandscapeEditorObject::StaticClass()->GetDefaultObject<ULandscapeEditorObject>(); // Create Landscape Editor Object instance
 	check(DefaultValueObject);
@@ -947,7 +841,8 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 	int32 OutQuadsPerSection = DefaultValueObject->NewLandscape_QuadsPerSection;
 	int32 OutSectionsPerComponent = DefaultValueObject->NewLandscape_SectionsPerComponent;
 	FIntPoint OutComponentCount = DefaultValueObject->NewLandscape_ComponentCount;
-	
+
+	// We automatically adjust/fit the data so users avoid having to guess.
 	FLandscapeImportHelper::ChooseBestComponentSizeForImport(OutImportDescriptor.ImportResolutions[DescriptorIndex].Width, OutImportDescriptor.ImportResolutions[DescriptorIndex].Height, OutQuadsPerSection, OutSectionsPerComponent, OutComponentCount);
 	
 	TArray<uint16> ImportData;
@@ -979,11 +874,15 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 
 	if (!Settings->LandscapeMaterialLayerNames.IsEmpty() && PathExists && Settings->LandscapeMaterialLayerNames.Num() >= 2 && Settings->WeightmapFileNames.Num() == (Settings->LandscapeMaterialLayerNames.Num() - 1))
 	{
+		//Checks to see if we have weightmaps to import. If there are 2 or less, we skip this.
 		ImportWeightmaps = true;
 	}
 
 	if(ImportWeightmaps)
 	{
+		// Load the AssetToolsModule. This is needed to create layer info objects. However, we may add the option to choose existing info objects instead of always creating new ones as it is not technically needed to have unique info objects.
+		FAssetToolsModule& AssetToolsModule = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools"); 
+		
 		//Create LandscapeLayerInfoObjects for use with weightmaps.
 		for(int i = 0; i < Settings->LandscapeMaterialLayerNames.Num(); i++)
 		{
@@ -1015,7 +914,7 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 		
 		//Fill first Layer with data. Layer 1 should never have areas with no data, as that results in black spots in the final material render.
 		MaterialImportLayers[0].LayerData = TArray<uint8>();
-		MaterialImportLayers[0].SourceFilePath = "";
+		MaterialImportLayers[0].SourceFilePath = ""; // Base layer doesn't contain a file
 		MaterialImportLayers[0].LayerInfo = LayerInfoObjects[0];
 		const int32 DataSize = SizeX * SizeY;
 		MaterialImportLayers[0].LayerData.AddUninitialized(DataSize);
@@ -1073,7 +972,8 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Create Gaea Landscape Component
-	
+
+	// This component stores filenames on the actor for any potential reimport. More features will eventually be added to this component.
 	UGaeaLandscapeComponent* GaeaComponent = NewObject<UGaeaLandscapeComponent>(Landscape, UGaeaLandscapeComponent::StaticClass(), TEXT("Gaea Landscape Component"));
 
 	if(GaeaComponent)
@@ -1115,7 +1015,8 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 		MaterialLayerDataPerLayers.Add(FGuid(), MaterialImportLayers);
 	}
 
-	Landscape->Import(FGuid::NewGuid(), 0, 0, SizeX - 1, SizeY - 1, OutSectionsPerComponent, OutQuadsPerSection, HeightmapDataPerLayers, *Settings->HeightMapFileName, MaterialLayerDataPerLayers, ELandscapeImportAlphamapType::Additive);
+	// This is the black box function the engine uses to inject all of our height/weight data into our landscape actor.
+	Landscape->Import(FGuid::NewGuid(), 0, 0, SizeX - 1, SizeY - 1, OutSectionsPerComponent, OutQuadsPerSection, HeightmapDataPerLayers, *Settings->HeightMapFileName, MaterialLayerDataPerLayers, ELandscapeImportAlphamapType::Additive, TArrayView<const FLandscapeLayer>());
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// Calculate Lighting LOD and Update Final Settings
@@ -1132,28 +1033,20 @@ void UGaeaSubsystem::CreateLandscapeActor(UImporterPanelSettings* Settings)
 	LandscapeInfo->UpdateLayerInfoMap(Landscape);
 
 	Landscape->RegisterAllComponents();
-
-	// Fill in the LayerInfo for layers with no data.
-	const TArray< FLandscapeImportLayer >& ImportLandscapeLayersList = DefaultValueObject->ImportLandscape_Layers;
-	for(int32 i = 0; i < ImportLandscapeLayersList.Num(); i++)
+	
+	for(int32 i = 0; i < Settings->LandscapeMaterialLayerNames.Num(); i++)
 	{
-		if(ImportLandscapeLayersList[i].LayerInfo != nullptr)
+		if(MaterialImportLayers[i].LayerInfo != nullptr)
 		{
-			Landscape->EditorLayerSettings.Add(FLandscapeEditorLayerSettings(ImportLandscapeLayersList[i].LayerInfo, ImportLandscapeLayersList[i].SourceFilePath));
-
-			int32 LayerInfoIndex = LandscapeInfo->GetLayerInfoIndex(ImportLandscapeLayersList[i].LayerName);
-			if(ensure(LayerInfoIndex != INDEX_NONE))
-			{
-				FLandscapeInfoLayerSettings& LayerSettings = LandscapeInfo->Layers[LayerInfoIndex];
-				LayerSettings.LayerInfoObj = ImportLandscapeLayersList[i].LayerInfo;
-			}
+			// New method introduced in 5.5 to create Target Layers. Without this, weightmap import will not work.
+			Landscape->AddTargetLayer(MaterialImportLayers[i].LayerName, FLandscapeTargetLayerSettings(MaterialImportLayers[i].LayerInfo, MaterialImportLayers[i].SourceFilePath));
 		}
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// World Partition Setup
 	
-	if (bIsGridBased && Settings->bIsWorldPartition)
+	if (bIsGridBased && Settings->bIsWorldPartition) // This can be considered a partial WP solution, as a significant portion of the needed code is hidden behind the landscape editor mode and private files. This results in slower creation of landscape proxies and no region volume support.
 	{
 		//Fake scoped task. ChangeGridSize doesn't provide any out data to hook into, so this is really only so the user doesn't think their editor is frozen.
 		FScopedSlowTask SlowTask(100.f, FText::FromString(TEXT("Creating landscape chunks, importing bits and bytes. Might be here for awhile.")));
