@@ -10,11 +10,9 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 class ALandscape;
-class ALandscapeProxy;
 class UGaeaSubsystem;
 class UImporterPanelSettings;
 class ULandscapeInfo;
-class ULandscapeSubsystem;
 class UMaterialExpressionLandscapeLayerBlend;
 class UMaterialInterface;
 struct FGaeaJson;
@@ -23,30 +21,28 @@ struct FGaeaJson;
 #endif
 #define GAEAUETOOLSEDITOR_GaeaSubsystem_generated_h
 
-#define FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_26_GENERATED_BODY \
+#define FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_26_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FGaeaJson_Statics; \
 	GAEAUETOOLSEDITOR_API static class UScriptStruct* StaticStruct();
 
 
 template<> GAEAUETOOLSEDITOR_API UScriptStruct* StaticStruct<struct FGaeaJson>();
 
-#define FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execGetLandscapeLayerBlendNames); \
 	DECLARE_FUNCTION(execGetLandscapeLayerBlendNodes); \
 	DECLARE_FUNCTION(execCreateLandscapeActor); \
-	DECLARE_FUNCTION(execAddComponents); \
 	DECLARE_FUNCTION(execGetLandscape); \
 	DECLARE_FUNCTION(execCreateStructFromJson); \
 	DECLARE_FUNCTION(execReadStringFromFile); \
 	DECLARE_FUNCTION(execImportHeightmap); \
-	DECLARE_FUNCTION(execDeleteLandscapeComponents); \
 	DECLARE_FUNCTION(execReimportGaeaWPTerrain); \
 	DECLARE_FUNCTION(execReimportGaeaTerrain); \
 	DECLARE_FUNCTION(execSpawnGImporterWindow); \
 	DECLARE_FUNCTION(execGetGaeaSubsystem);
 
 
-#define FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_INCLASS_NO_PURE_DECLS \
+#define FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUGaeaSubsystem(); \
 	friend struct Z_Construct_UClass_UGaeaSubsystem_Statics; \
@@ -55,7 +51,7 @@ public: \
 	DECLARE_SERIALIZER(UGaeaSubsystem)
 
 
-#define FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_ENHANCED_CONSTRUCTORS \
+#define FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UGaeaSubsystem(); \
 private: \
@@ -69,13 +65,13 @@ public: \
 	NO_API virtual ~UGaeaSubsystem();
 
 
-#define FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_45_PROLOG
-#define FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_GENERATED_BODY \
+#define FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_45_PROLOG
+#define FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_INCLASS_NO_PURE_DECLS \
-	FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_ENHANCED_CONSTRUCTORS \
+	FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_INCLASS_NO_PURE_DECLS \
+	FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h_48_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -83,7 +79,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> GAEAUETOOLSEDITOR_API UClass* StaticClass<class UGaeaSubsystem>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_G54_GaeaUnrealTools_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h
+#define CURRENT_FILE_ID FID_HostProject_Plugins_GaeaUnrealTools_Source_GaeaUEToolsEditor_Public_GaeaSubsystem_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

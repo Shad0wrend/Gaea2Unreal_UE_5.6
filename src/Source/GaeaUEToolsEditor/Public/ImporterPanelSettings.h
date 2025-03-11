@@ -23,7 +23,7 @@ public:
 	UPROPERTY(VisibleAnywhere, DisplayName="JSON Filename", Category="Filepaths")
 	FString jsonFileName;
 
-	//Reorder these to match the desired landscape layer.
+	//Reorder these to match the desired landscape layer. This must always be less than the amount of layers provided by the landscape material.
 	UPROPERTY(EditAnywhere, DisplayName= "Weightmap Filenames", Category="Filepaths")
 	TArray<FString>  WeightmapFileNames;
 
@@ -45,10 +45,7 @@ public:
 	// Used only if the level has world partition support.
 	UPROPERTY(EditAnywhere, Category="Landscape Actor Settings|World Partition", meta = (EditCondition = "bIsWorldPartition", UIMin="1", UIMax="16", ClampMin="1", ClampMax="16"))
 	int32 WorldPartitionGridSize = 2;
-
-	/*UPROPERTY(EditAnywhere, Category="Landscape Actor Settings|World Partition", meta = (EditCondition = "bIsWorldPartition", UIMin="4", UIMax="64", ClampMin="4", ClampMax="64"))
-	int32 WorldPartitionRegionSize = 16;*/
-
+	
 	//Must be set to automatically setup layer weightmaps.
 	UPROPERTY(Category="Rendering", EditAnywhere, DisplayName="Landscape Material")
 	TObjectPtr<UMaterialInterface> LandscapeMaterial;
@@ -85,11 +82,5 @@ public:
 	int32 TotalComponents;
 
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
-
-	/*UPROPERTY(EditAnywhere, Category="World Partition", DisplayName="Enable World Partition")
-	bool bIsWorldPartition;*/
-
-	/*UPROPERTY(EditAnywhere, Category="World Partition", meta = (EditCondition = "bIsWorldPartition", UIMin="4", UIMax="64", ClampMin="4", ClampMax="64"))
-	int32 WorldPartitionRegionSize = 16;*/
 	
 };

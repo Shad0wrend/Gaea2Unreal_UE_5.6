@@ -52,7 +52,7 @@ public:
 	UFUNCTION()
 	static UGaeaSubsystem* GetGaeaSubsystem();
 
-	// Spawn the Gaea Material Creator Window
+	// Spawn the Gaea Material Creator Window - future release
 	/*UFUNCTION(Category="Gaea")
 	void SpawnGMCWindow();*/
 
@@ -65,9 +65,6 @@ public:
 	
 	UFUNCTION()
 	void ReimportGaeaWPTerrain();
-
-	UFUNCTION()
-	void DeleteLandscapeComponents();
 
 	// Open import dialog for heightmap file types. Will set a path for heightmap and json files.
 	UFUNCTION()
@@ -84,10 +81,7 @@ public:
 	UFUNCTION()
 	ALandscape* GetLandscape(ULandscapeInfo* LandscapeInfo) const;
 	
-	FGuid GetLayerGuidFromIndex(int32 Index, ULandscapeInfo* LandscapeInfo) const;
-	
-	UFUNCTION()
-	void AddComponents(ULandscapeInfo* InLandscapeInfo, ULandscapeSubsystem* InLandscapeSubsystem, const TArray<FIntPoint>& InComponentCoordinates, TArray<ALandscapeProxy*>& OutCreatedStreamingProxies);
+	//FGuid GetLayerGuidFromIndex(int32 Index, ULandscapeInfo* LandscapeInfo) const;
 	
 	//Creates a landscape actor from our panel settings.
 	UFUNCTION()
@@ -111,7 +105,7 @@ private:
 	UPROPERTY()
 	FString DefaultDialogPath;
 	
-	TSharedPtr<class IDetailsView> PropertyWidget;
+	TSharedPtr<IDetailsView> PropertyWidget;
 	TWeakPtr<SWindow> WindowValidator;
 	TWeakPtr<SWindow> ImporterWindowValidator;
 	
